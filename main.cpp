@@ -23,7 +23,7 @@ void init() {
     std::cout << "Created Window with size: " << window.getSize().x << ',' << window.getSize().y << std::endl;
 
     //init drawing texture
-    drawings.create(winX, winY, sf::Color(0, 0, 0));
+    drawings.create(winX, winY, sf::Color(0, 0, 0,0));
     drawTexture.loadFromImage(drawings);
     drawSprite.setTexture(drawTexture);
 
@@ -43,26 +43,36 @@ void tick() {
     }
 
     checkInputs();
-    window.clear();
+    window.clear(sf::Color(0, 0, 0,0));
+
+    // code to test combination of shapes and pure pixel drawing
+    renTexture.create(winX, winY, true);
+
+    // draw shapes onto the texture
+    for (auto d : drawVector) {
+        renTexture.draw(*d);
+    }
+
+    // draw pixels
 
     // use this to clear sprite
-    //drawings.create(winX, winY);
+    drawings.create(winX, winY, sf::Color(0, 0, 0,0));
 
     //draw mouse position pixel
-    if(mousePos.x >= 0 && mousePos.x <= winX && mousePos.y >= 0 && mousePos.y <= winY)
+    if(withinWindow(mousePos))
     {
-        drawings.setPixel(mousePos.x,mousePos.y, sf::Color(255,255,255));
+        drawings.setPixel(mousePos.x,mousePos.y, sf::Color(255,0,0));
     }
 
     //draw the sprite
-    drawTexture.loadFromImage(drawings);
+    drawTexture.update(drawings);
     drawSprite.setTexture(drawTexture);
-    window.draw(drawSprite);
 
-    //draw shapes
-    for (auto d : drawVector) {
-        window.draw(*d);
-    }
+    renTexture.draw(drawSprite); // draw pixelbuffer Sprite onto the texture
+    renTexture.display();
+
+    drawSprite.setTexture(renTexture.getTexture()); // now update a render sprite
+    window.draw(drawSprite); // and render it
 
     window.display();
 
@@ -72,6 +82,25 @@ void checkInputs()
 {
     mousePos = sf::Mouse::getPosition(window);
     std::cout << mousePos.x << "," << mousePos.y << std::endl;
+}
+
+bool withinWindow(std::vector<sf::Vector2i> points)
+{
+    bool check = true;
+    for(auto p : points)
+    {
+        if(p.x >= 0 && p.x <= winX && p.y >= 0 && p.y <= winY);
+        else
+        {
+            check = false;
+        }
+    }
+    return check;
+}
+
+bool withinWindow(sf::Vector2i point)
+{
+    return point.x >= 0 && point.x <= winX && point.y >= 0 && point.y <= winY;
 }
 
 void end() {
