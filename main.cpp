@@ -57,6 +57,8 @@ void tick() {
 
     // use this to clear sprite
     drawings.create(winX, winY, sf::Color(0, 0, 0,0));
+    sf::Image temp;
+    temp.create(winX, winY, sf::Color(255, 255, 255,255));
 
     //draw mouse position pixel
     if(withinWindow(mousePos))
