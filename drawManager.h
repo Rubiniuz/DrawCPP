@@ -10,29 +10,20 @@
 class drawManager {
 
 public:
-
-    static drawManager* instance;
-
-    static void createInstance()
+    static drawManager& getInstance()
     {
-        drawManager::instance = new drawManager();
+        static drawManager instance;
+        return instance;
     }
 
-    void print()
-    {
-        std::cout << "heyo" << std::endl;
-    }
+    static void draw();
 
-    drawManager()
-    {
-        if(drawManager::instance == nullptr)
-        {
-            drawManager::instance = this;
-        } else
-        {
-            delete(this);
-        }
-    }
+private:
+    drawManager() {}
+
+public:
+    drawManager(drawManager const&) = delete;
+    void operator=(drawManager const&) = delete;
 
 };
 

@@ -3,3 +3,7 @@
 //
 
 #include "drawManager.h"
+
+void drawManager::draw() {
+    std::cout << "Drawing!" << std::endl;
+}

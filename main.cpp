@@ -31,9 +31,6 @@ void init() {
     auto* shape = new sf::CircleShape(30.f);
     shape->setFillColor(sf::Color::Green);
     drawVector.push_back(shape);
-
-    // init singletons
-    drawManager::createInstance();
 }
 
 void tick() {
@@ -85,11 +82,7 @@ void tick() {
     //check inputs
     //draw
     //repeat
-    if(drawManager::instance != nullptr)
-    {
-        drawManager::instance->print();
-    }
-
+    drawManager::getInstance().draw();
 
 }
 
