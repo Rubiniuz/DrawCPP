@@ -1,4 +1,5 @@
 #include "main.h"
+#include "drawManager.h"
 
 int main() {
     init();
@@ -31,6 +32,8 @@ void init() {
     shape->setFillColor(sf::Color::Green);
     drawVector.push_back(shape);
 
+    // init singletons
+    drawManager::createInstance();
 }
 
 void tick() {
@@ -46,7 +49,7 @@ void tick() {
     window.clear(sf::Color(0, 0, 0,0));
 
     // code to test combination of shapes and pure pixel drawing
-    renTexture.create(winX, winY, true);
+    renTexture.create(winX, winY);
 
     // draw shapes onto the texture
     for (auto d : drawVector) {
@@ -77,6 +80,16 @@ void tick() {
     window.draw(drawSprite); // and render it
 
     window.display();
+
+    //check events
+    //check inputs
+    //draw
+    //repeat
+    if(drawManager::instance != nullptr)
+    {
+        drawManager::instance->print();
+    }
+
 
 }
 

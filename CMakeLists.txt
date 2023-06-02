@@ -3,7 +3,7 @@ project(DrawCPP)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCE_FILES main.cpp main.h)
+set(SOURCE_FILES main.cpp main.h drawManager.cpp drawManager.h)
 add_executable(DrawCPP ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
